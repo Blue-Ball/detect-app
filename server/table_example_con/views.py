@@ -11,7 +11,7 @@ from django.db import connection
 from djqscsv import render_to_csv_response
 
 ##### Modify with your database here #####
-db = MySQLdb.connect("localhost", "root", "intel@123", "ithome_news", charset='utf8')
+db = MySQLdb.connect("localhost", "root", "", "ithome_news", charset='utf8')
 cursor = db.cursor()
 
 category_list = ['All', 'iPhone应用推荐', 'iPhone新闻', 'Win10快讯', 'Win10设备', '业界', '人工智能', '人物', '天文航天', '奇趣电子', '安卓应用推荐',

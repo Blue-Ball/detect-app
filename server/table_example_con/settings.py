@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'ithome_news',
         'USER': 'root',
         ######## modify with your password here ########
-        'PASSWORD': 'intel@123',
+        'PASSWORD': '',
         ################################################
         'CONN_MAX_AGE': 3600,
     }

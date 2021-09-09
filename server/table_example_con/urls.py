@@ -18,7 +18,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('table_example', views.table_show),
+    path('', views.table_show),
+    path('main', views.table_show),
     url(r'^news_search$', views.news_search),
     url(r'^news_filter$', views.news_filter),
     url(r'^download_excel', views.download_excel),
