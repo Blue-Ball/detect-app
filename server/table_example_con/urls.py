@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('', views.table_show),
     path('main', views.table_show),
+    path('upload_count', views.upload_count),
     url(r'^news_search$', views.news_search),
     url(r'^news_filter$', views.news_filter),
     url(r'^download_excel', views.download_excel),

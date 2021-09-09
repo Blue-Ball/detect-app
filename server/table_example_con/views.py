@@ -103,3 +103,7 @@ def download_excel(requst):
     data = data.values("time", "title", "category")
     print(type(data))
     return render_to_csv_response(data, filename="table_download.csv")
+
+def upload_count(request):
+    print(request)
+    return HttpResponse("Hello, world. You're at the polls index.")
