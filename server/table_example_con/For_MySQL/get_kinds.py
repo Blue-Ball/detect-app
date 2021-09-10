@@ -1,6 +1,6 @@
 import MySQLdb
 
-db = MySQLdb.connect("localhost", "root", "", "ithome_news", charset='utf8')
+db = MySQLdb.connect("localhost", "root", "", "detect_car_db", charset='utf8')
 cursor = db.cursor()
 
 

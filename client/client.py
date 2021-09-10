@@ -21,9 +21,11 @@ import torch
 import torch.backends.cudnn as cudnn
 from yolov5.utils.general import is_colab, is_docker
 import numpy as np
+import requests
 
 CAMERA_ID = '1'
 CAMERA_SRC = 'Sample3.mp4'
+BACKEND_ADDR = "http://127.0.0.1:8000/save_vehicles"
 # CAMERA_SRC = 'https://www.youtube.com/watch?v=_9OBhtLA9Ig'
 # CAMERA_SRC = 'rtsp://{}:{}@192.168.1.43:554/cam/realmonitor?channel=1&subtype=0'.format(username, password)
 
@@ -159,6 +161,23 @@ def detect(opt):
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
+                try:
+                    #print(f'{n}')
+                    request_param = {'camera_id':CAMERA_ID, 'pass_count':int(n)}
+
+                    response = requests.get(BACKEND_ADDR, params = request_param, timeout=5)
+                    response.raise_for_status()
+                    print(response)
+                    # Code here will only run if the request is successful
+                except requests.exceptions.HTTPError as errh:
+                    print(errh)
+                except requests.exceptions.ConnectionError as errc:
+                    print(errc)
+                except requests.exceptions.Timeout as errt:
+                    print(errt)
+                except requests.exceptions.RequestException as err:
+                    print(err)
+
                 xywhs = xyxy2xywh(det[:, 0:4])
                 confs = det[:, 4]
                 clss = det[:, 5]
@@ -193,6 +212,7 @@ def detect(opt):
             else:
                 deepsort.increment_ages()
 
+            
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
 

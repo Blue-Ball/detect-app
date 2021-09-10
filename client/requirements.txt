@@ -20,3 +20,5 @@ pandas
 # deep_sort -----------------------------------
 
 easydict
+
+requests

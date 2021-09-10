@@ -11,49 +11,44 @@
         <style>
            body {background-color: whitesmoke;}
         </style>
-    <script type="text/javascript" src="/static/js/jquery-1.11.0.js"></script>
-</head>
+        <script type="text/javascript" src="/static/js/jquery-1.11.0.js"></script>
+    </head>
     <body>
-    <div id="Top" style="background:#38c">
-        <a href="/main" id="acrn_title">&nbsp;Show Traffic</a>
-    </div>
-    <div id="Center">
-        <div id="Center_Searcher">
-            <form action="/news_search" method="get">
-            <table class="center_table">
-                <tr><td colspan="5"><h3>Search by Title</h3></td></tr>
-                <tr>
-                    <td>Keyword:</td>
-                    <td align="center">&nbsp;&nbsp;<input name="keywd_input" value="{{ keywd_input }}"></td>
-                    <td align="center">&nbsp;&nbsp;<input type="submit" value="search"></td>
-                </tr>
-            </table>
-            </form>
+        <div id="Top" style="background:#38c">
+            <a href="/main" id="acrn_title">&nbsp;Show Traffic</a>
         </div>
-        <div id="Center_Filter">
-            <form action="/news_filter" method="get">
-            <table class="center_table">
-                <tr><td colspan="5"><h3>Filter</h3></td></tr>
-                <tr>
-                    <td>Category:</td>
-                    <td>&nbsp;&nbsp;<select name="filter_category">
-                        {% for i in category_list %}
-                          <option value="{{i}}" {% if i == filter_category %} selected{% endif %}>{{i}}</option>
-                        {% endfor %}
-                    </select></td>
-                    <td><input type="submit" value="Filter"></td>
-                </tr>
-            </table>
-            </form>
+        <div id="Center">
+            <div id="Center_Filter">
+                <form action="/traffic_filter" method="get">
+                <table class="center_table">
+                    <tr><td colspan="5"><h3>Filter</h3></td></tr>
+                    <tr>
+                        <td>Time Type:</td>
+                        <td>&nbsp;&nbsp;<select name="filter_time" style="width: 100px;">
+                            <option value=""></option>
+                            {% for i in category_list %}
+                            <option value="{{i}}" {% if i == filter_time %} selected{% endif %}>{{i}}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Camera Type:</td>
+                        <td>&nbsp;&nbsp;<select name="filter_camera" style="width: 100px;">
+                            <option value="all">All</option>
+                            {% for camera in cameras %}
+                            <option value="{{camera.camera_id}}" {% if camera.camera_id == filter_camera %} selected{% endif %}>{{camera.camera_id}}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td><input type="submit" value="Filter"></td>
+                    </tr>
+                </table>
+                </form>
+            </div>
         </div>
-    </div>
-    <div id="Table">
-        <h3>&nbsp;Device table</h3>
-        <form action="/download_excel" method="get">
-            &nbsp;&nbsp;<a href="/download_excel">Download to excel</a>
-        </form><br>
+        <div id="Table">
+            <h3>&nbsp;Device table</h3>
             {% render_table table %}
-    </div>
-    </div>
+        </div>
     </body>
 </html>

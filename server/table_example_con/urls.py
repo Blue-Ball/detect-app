@@ -18,10 +18,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('', views.table_show),
-    path('main', views.table_show),
-    path('upload_count', views.upload_count),
-    url(r'^news_search$', views.news_search),
-    url(r'^news_filter$', views.news_filter),
-    url(r'^download_excel', views.download_excel),
+    path('', views.traffic),
+    path('main', views.traffic),
+    url(r'^traffic_filter$', views.traffic_filter),
+    url(r'^save_vehicles$', views.save_vehicles),
 ]

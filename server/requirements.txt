@@ -1,0 +1,12 @@
+# pip install -r requirements.txt
+
+django
+mysqlclient
+more-itertools
+django-queryset-csv
+django-tables2
+
+# python -m venv .env
+# ./env/scripts/activate
+# python manage.py migrate
+# python manage.py runserver

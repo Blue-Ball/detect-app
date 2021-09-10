@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'table_example_con.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ithome_news',
+        'NAME': 'detect_car_db',
         'USER': 'root',
         ######## modify with your password here ########
         'PASSWORD': '',
