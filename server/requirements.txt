@@ -5,6 +5,7 @@ mysqlclient
 more-itertools
 django-queryset-csv
 django-tables2
+pytz
 
 # python -m venv .env
 # ./env/scripts/activate

@@ -5,13 +5,12 @@ from django.db.models.functions import TruncYear, TruncMonth, TruncDay, TruncHou
 from django.http import HttpResponse
 import django_tables2 as tables
 import MySQLdb
-import datetime
-import pytz
 from django_tables2.config import RequestConfig
 import itertools
 from django.db import connection
 from djqscsv import render_to_csv_response
-from django.utils import timezone
+from datetime import datetime
+from pytz import timezone
 
 ##### Modify with your database here #####
 db = MySQLdb.connect("localhost", "root", "", "detect_car_db", charset='utf8')
@@ -23,6 +22,7 @@ class vehicle_info(models.Model):
     camera_id = models.IntegerField(default=0)
     pass_count = models.IntegerField(default=0)
     time = models.DateTimeField(auto_now=True)
+    # time = models.DateTimeField(auto_now=False)
 
     class Meta:
         db_table = "vehicle_info"
@@ -92,10 +92,12 @@ class filterByCameraTable(tables.Table):
         }
         fields = ("counter", "filter_time", "pass_count")
 
-
+global_timezone = timezone('America/Fortaleza')
 def save_vehicles(request):
     cameraid = request.GET['camera_id']
     passcount = request.GET['pass_count']
+    current_time = datetime.now().replace(tzinfo=global_timezone) #tz aware
+    # v_info = vehicle_info(camera_id = cameraid, pass_count = passcount, time = current_time)
     v_info = vehicle_info(camera_id = cameraid, pass_count = passcount)
     v_info.save()
     return HttpResponse("Success")
