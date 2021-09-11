@@ -11,6 +11,7 @@ from django_tables2.config import RequestConfig
 import itertools
 from django.db import connection
 from djqscsv import render_to_csv_response
+from django.utils import timezone
 
 ##### Modify with your database here #####
 db = MySQLdb.connect("localhost", "root", "", "detect_car_db", charset='utf8')

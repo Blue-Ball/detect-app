@@ -29,6 +29,7 @@ BACKEND_ADDR = "http://127.0.0.1:8000/save_vehicles"
 # CAMERA_SRC = 'https://www.youtube.com/watch?v=_9OBhtLA9Ig'
 # CAMERA_SRC = 'rtsp://{}:{}@192.168.1.43:554/cam/realmonitor?channel=1&subtype=0'.format(username, password)
 
+prevCount = 0
 def rescale_frame(frame, percent=75):
     width = int(frame.shape[1] * percent/ 100)
     height = int(frame.shape[0] * percent/ 100)
@@ -46,6 +47,8 @@ def compute_color_for_id(label):
 
 
 def detect(opt):
+    global prevCount
+    
     out, source, yolo_weights, deep_sort_weights, show_vid, save_vid, save_txt, imgsz, evaluate = \
         opt.output, opt.source, opt.yolo_weights, opt.deep_sort_weights, opt.show_vid, opt.save_vid, \
             opt.save_txt, opt.img_size, opt.evaluate
@@ -161,22 +164,23 @@ def detect(opt):
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
-                try:
-                    #print(f'{n}')
-                    request_param = {'camera_id':CAMERA_ID, 'pass_count':int(n)}
+                if prevCount != int(n):
+                    try:
+                        request_param = {'camera_id':CAMERA_ID, 'pass_count':int(n)}
 
-                    response = requests.get(BACKEND_ADDR, params = request_param, timeout=5)
-                    response.raise_for_status()
-                    print(response)
-                    # Code here will only run if the request is successful
-                except requests.exceptions.HTTPError as errh:
-                    print(errh)
-                except requests.exceptions.ConnectionError as errc:
-                    print(errc)
-                except requests.exceptions.Timeout as errt:
-                    print(errt)
-                except requests.exceptions.RequestException as err:
-                    print(err)
+                        response = requests.get(BACKEND_ADDR, params = request_param, timeout=5)
+                        response.raise_for_status()
+                        prevCount = int(n)
+                        print(f'uploaded :{response}')
+                        # Code here will only run if the request is successful
+                    except requests.exceptions.HTTPError as errh:
+                        print(errh)
+                    except requests.exceptions.ConnectionError as errc:
+                        print(errc)
+                    except requests.exceptions.Timeout as errt:
+                        print(errt)
+                    except requests.exceptions.RequestException as err:
+                        print(err)
 
                 xywhs = xyxy2xywh(det[:, 0:4])
                 confs = det[:, 4]

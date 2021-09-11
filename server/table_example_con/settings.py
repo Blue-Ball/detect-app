@@ -111,7 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
+#TIME_ZONE = 'Asia/Tokyo'
+# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 USE_I18N = True
 
